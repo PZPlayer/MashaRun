@@ -50,15 +50,11 @@ public class Movement : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                rb.gravityScale = gravity * 0.9f;
-            }
-            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            {
-                rb.gravityScale = gravity * 2.5f;
+                rb.gravityScale = gravity * 0.7f;
             }
             else if (Input.GetKeyUp(KeyCode.Space))
             {
-                rb.gravityScale = gravity * 1f;
+                rb.gravityScale = gravity * 2.5f;
             }
         }
         else

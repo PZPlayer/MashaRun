@@ -42,10 +42,11 @@ public class WeaponUse : MonoBehaviour
 
     private void Update()
     {
-        Vector3 viewportPosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        viewportPosition.z = 0;
-        _head.transform.Rotate(viewportPosition + transform.position);
-        print(" " + Camera.main.ScreenToWorldPoint(Input.mousePosition) + " " + Input.mousePosition + " " + viewportPosition + " " + Camera.main.ViewportToWorldPoint(viewportPosition));
+        Vector3 mousePos = -Input.mousePosition;
+        Vector2 viewportPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.transform.position.z));
+        viewportPosition.y -= 41;
+        viewportPosition.x -= 60;
+        _head.transform.LookAt(viewportPosition);
 
         if(Input.GetMouseButtonDown(0))
         {
@@ -59,7 +60,7 @@ public class WeaponUse : MonoBehaviour
         GameObject curBullet = GetBulletFromPull();
         curBullet.SetActive(true);
         curBullet.transform.position = _shootPoint.position;
-        curBullet.transform.rotation = _shootPoint.rotation;
+        curBullet.transform.rotation = _head.transform.rotation;
         StartCoroutine(KillBulletAfterDelay(curBullet, 3));
     }
 
