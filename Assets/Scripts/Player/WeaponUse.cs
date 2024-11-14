@@ -59,7 +59,7 @@ public class WeaponUse : MonoBehaviour
         shootEvent.Invoke();
         GameObject curBullet = GetBulletFromPull();
         curBullet.SetActive(true);
-        curBullet.transform.position = _shootPoint.position;
+        curBullet.transform.position = new Vector3(_shootPoint.position.x, _shootPoint.position.y , 0);
         curBullet.transform.rotation = _head.transform.rotation;
         StartCoroutine(KillBulletAfterDelay(curBullet, 3));
     }
