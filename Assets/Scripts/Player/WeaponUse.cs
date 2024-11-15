@@ -42,10 +42,8 @@ public class WeaponUse : MonoBehaviour
 
     private void Update()
     {
-        Vector3 mousePos = -Input.mousePosition;
-        Vector2 viewportPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.transform.position.z));
-        viewportPosition.y -= 41;
-        viewportPosition.x -= 60;
+        Vector3 mousePos = Input.mousePosition;
+        Vector2 viewportPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -Camera.main.transform.position.z));
         _head.transform.LookAt(viewportPosition);
 
         if(Input.GetMouseButtonDown(0))
