@@ -10,6 +10,7 @@ public class WeaponUse : MonoBehaviour
     [SerializeField] private Weapon _weapon;
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private GameObject _head, _hand;
+    [SerializeField] private bool weaponActive;
     List<GameObject> bullets = new List<GameObject>();
     public UnityEvent shootEvent;
     float reload, reloadTimer;
@@ -20,12 +21,13 @@ public class WeaponUse : MonoBehaviour
         reload = _weapon.Reload;
         RestartPool();
         rotateWeaponObj = _weapon.WeaponPref;
-        GameObject weapon = Instantiate(_weapon.WeaponPref, Vector3.zero, Quaternion.identity); //Vector3.zero, Quaternion.identity
+        GameObject weapon = Instantiate(_weapon.WeaponPref, Vector3.zero, Quaternion.identity); 
         weapon.transform.parent = _hand.transform;
-        weapon.transform.localPosition = Vector3.zero; // ”станавливаем нулевую локальную позицию
-        weapon.transform.localRotation = Quaternion.identity; // ”станавливаем нулевое локальное вращение
+        weapon.transform.localPosition = Vector3.zero; 
+        weapon.transform.localRotation = Quaternion.identity; 
         weaponHold = weapon;
         _shootPoint = weaponHold.transform.GetChild(0).gameObject.transform;
+        weaponHold.SetActive(weaponActive);
     }
 
     void RestartPool()
@@ -51,9 +53,15 @@ public class WeaponUse : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && weaponActive)
         {
             Shoot();
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            weaponActive = !weaponActive;
+            weaponHold.SetActive(weaponActive);
         }
     }
 

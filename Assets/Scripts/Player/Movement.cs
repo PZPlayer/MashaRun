@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _dashesReload;
     [SerializeField] private float _originalFriction;
     [SerializeField] private float _frictionMultiplier;
+    [SerializeField] private float _coyoteTimer;
     [SerializeField] [Range(0f, 1f)] private float _frictionDuration;
 
     [SerializeField] private GameObject _feet;
@@ -28,6 +29,7 @@ public class Movement : MonoBehaviour
     private float gravity;
     private float dashTimer;
     private float dashAddTimer;
+    private float jumpcoyoteTimer;
     private float maxDashes;
 
     private void Start()
@@ -82,14 +84,16 @@ public class Movement : MonoBehaviour
             StartCoroutine(ReduceFriction());
         }
 
-        if (ifGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && (ifGrounded || jumpcoyoteTimer > 0))
         {
             Jump();
             _anmtr.SetBool("Jump", true);
+            jumpcoyoteTimer = 0;
         }
 
         if (!ifGrounded)
         {
+            jumpcoyoteTimer -= Time.deltaTime;
             if (Input.GetKey(KeyCode.Space))
             {
                 rb.gravityScale = gravity * 0.7f;
@@ -110,6 +114,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
+            jumpcoyoteTimer = _coyoteTimer;
             rb.gravityScale = gravity * 1f;
             _anmtr.SetBool("Jump", false);
         }
