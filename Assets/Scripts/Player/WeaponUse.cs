@@ -1,22 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class WeaponUse : MonoBehaviour
 {
-    [SerializeField]private Weapon _weapon;
+    [SerializeField] private Weapon _weapon;
     [SerializeField] private Transform _shootPoint;
-    [SerializeField] private GameObject _head;
+    [SerializeField] private GameObject _head, _hand;
     List<GameObject> bullets = new List<GameObject>();
     public UnityEvent shootEvent;
     float reload, reloadTimer;
+    [SerializeField] private GameObject rotateWeaponObj, weaponHold;
 
     private void Start()
     {
         reload = _weapon.Reload;
         RestartPool();
+        rotateWeaponObj = _weapon.WeaponPref;
+        GameObject weapon = Instantiate(_weapon.WeaponPref, Vector3.zero, Quaternion.identity); //Vector3.zero, Quaternion.identity
+        weapon.transform.parent = _hand.transform;
+        weapon.transform.localPosition = Vector3.zero; // ”станавливаем нулевую локальную позицию
+        weapon.transform.localRotation = Quaternion.identity; // ”станавливаем нулевое локальное вращение
+        weaponHold = weapon;
+        _shootPoint = weaponHold.transform.GetChild(0).gameObject.transform;
     }
 
     void RestartPool()
@@ -42,10 +51,6 @@ public class WeaponUse : MonoBehaviour
 
     private void Update()
     {
-        Vector3 mousePos = Input.mousePosition;
-        Vector2 viewportPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, -Camera.main.transform.position.z));
-        _head.transform.LookAt(viewportPosition);
-
         if(Input.GetMouseButtonDown(0))
         {
             Shoot();
@@ -58,7 +63,7 @@ public class WeaponUse : MonoBehaviour
         GameObject curBullet = GetBulletFromPull();
         curBullet.SetActive(true);
         curBullet.transform.position = new Vector3(_shootPoint.position.x, _shootPoint.position.y , 0);
-        curBullet.transform.rotation = _head.transform.rotation;
+        curBullet.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y == 0 ? 90 : -90, 0);
         StartCoroutine(KillBulletAfterDelay(curBullet, 3));
     }
 

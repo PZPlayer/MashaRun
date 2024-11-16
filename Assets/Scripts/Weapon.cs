@@ -7,11 +7,13 @@ using UnityEngine;
 public class Weapon : ScriptableObject
 {
     [SerializeField] private GameObject _bullet;
+    [SerializeField] private GameObject _weapon;
     [SerializeField] private string _name;
     [SerializeField] private float _reload;
     [SerializeField] private int _poolSize;
 
     public GameObject Bullet {  get { return _bullet; } }
+    public GameObject WeaponPref { get { return _weapon; } }
     public string Name { get { return _name; } }
     public float Reload {  get { return _reload; } }
 
