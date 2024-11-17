@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   _bullet: {fileID: 1897202901115488962, guid: d986f271fc6924242a63628157bba5cd, type: 3}
-  _weapon: {fileID: 7350771106752498573, guid: 0cde59546fd92f94aa292ed08d86da40, type: 3}
+  _weapon: {fileID: 6174774751565393758, guid: 1b27d96f1df436e419d053013d226ab4, type: 3}
   _name: Pistol
   _reload: 1
   _poolSize: 5

@@ -13,7 +13,7 @@ public class WeaponUse : MonoBehaviour
     [SerializeField] private bool weaponActive;
     List<GameObject> bullets = new List<GameObject>();
     public UnityEvent shootEvent;
-    float reload, reloadTimer;
+    float reload, reloadTimer, waitBeforeShoot;
     [SerializeField] private GameObject rotateWeaponObj, weaponHold;
 
     private void Start()
@@ -53,8 +53,10 @@ public class WeaponUse : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0) && weaponActive)
+        waitBeforeShoot += Time.deltaTime;
+        if(Input.GetMouseButtonDown(0) && weaponActive && waitBeforeShoot > 0.7f)
         {
+            waitBeforeShoot = 0;
             Shoot();
         }
 
@@ -68,10 +70,11 @@ public class WeaponUse : MonoBehaviour
     void Shoot()
     {
         shootEvent.Invoke();
+        weaponHold.transform.GetChild(0).Find("Partcls").GetComponent<ParticleSystem>().Play();
         GameObject curBullet = GetBulletFromPull();
         curBullet.SetActive(true);
         curBullet.transform.position = new Vector3(_shootPoint.position.x, _shootPoint.position.y , 0);
-        curBullet.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y == 0 ? 90 : -90, 0);
+        curBullet.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y == 0 ? 0 : -180, 0);
         StartCoroutine(KillBulletAfterDelay(curBullet, 3));
     }
 
