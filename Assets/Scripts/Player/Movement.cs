@@ -10,6 +10,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _dashReload;
     [SerializeField] private float _dashesAvaible;
     [SerializeField] private float _dashesReload;
+    [SerializeField] private float _slowOnWeaponEquip = 0.5f;
     [SerializeField] private float _originalFriction;
     [SerializeField] private float _frictionMultiplier;
     [SerializeField] private float _coyoteTimer;
@@ -31,7 +32,7 @@ public class Movement : MonoBehaviour
     private float dashAddTimer;
     private float jumpcoyoteTimer;
     private float maxDashes;
-
+    private bool weaponUp;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -45,6 +46,7 @@ public class Movement : MonoBehaviour
     {
         trajectory.x = Input.GetAxis("Horizontal");
         trajectory *= Time.deltaTime * _speed;
+        weaponUp = GetComponent<WeaponUse>().ifWeaponActive;
         if (trajectory.x > 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -56,7 +58,7 @@ public class Movement : MonoBehaviour
 
         _anmtr.SetBool("Run", trajectory.x != 0 ? true : false);
 
-        transform.position += trajectory;
+        transform.position += trajectory * (weaponUp == true ? _slowOnWeaponEquip : 1);
     }
 
     private void Update()

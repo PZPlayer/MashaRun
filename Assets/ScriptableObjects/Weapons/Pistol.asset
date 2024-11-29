@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bullet: {fileID: 1897202901115488962, guid: d986f271fc6924242a63628157bba5cd, type: 3}
   _weapon: {fileID: 6174774751565393758, guid: 1b27d96f1df436e419d053013d226ab4, type: 3}
+  _magazine: {fileID: 3392787721599610236, guid: 30d9216d269ef7342a0ae4259f70e72d, type: 3}
+  _image: {fileID: -1258494012, guid: dc3f6e51c3a695e40896b96962dfee0e, type: 3}
   _name: Pistol
   _reload: 1
-  _poolSize: 5
+  _poolSize: 6

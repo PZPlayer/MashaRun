@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField][Range(0, 100)] private float speed;
     [SerializeField] private ParticleSystem _hitWall, _hitEnemy, _basePartcls;
+    [SerializeField] private float _damage;
 
     private void FixedUpdate()
     {
@@ -15,13 +16,10 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        print(other.gameObject.name);
-        if (other.gameObject.GetComponent<CameraFollow>() != null)
+        IDamageble damageble = other.gameObject.GetComponent<IDamageble>();
+        if (damageble != null)
         {
-
-        }
-        else
-        {
+            damageble.Damage(_damage);
             if (transform.GetChild(0).GetComponent<SpriteRenderer>().enabled == true)
             {
                 _hitWall.Play();
@@ -38,6 +36,5 @@ public class Bullet : MonoBehaviour
         transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
         _basePartcls.Play();
         gameObject.SetActive(false);
-        print(transform.GetChild(0).GetComponent<SpriteRenderer>().enabled);
     }
 }
