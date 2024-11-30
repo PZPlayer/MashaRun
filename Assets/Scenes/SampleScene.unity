@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 269702851}
   - component: {fileID: 269702856}
   - component: {fileID: 269702855}
+  - component: {fileID: 269702857}
   m_Layer: 0
   m_Name: Biter
   m_TagString: Untagged
@@ -294,7 +295,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 60
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -447,6 +448,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &269702857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269702850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7793f0be4d2bb94a9f3eb547ab1b4d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 0.01
+  _health: {fileID: 269702855}
+  _humanoid: {fileID: 11400000, guid: 39ccbf81242ac8c41b2b8ea63d09fc1b, type: 2}
 --- !u!1 &317013217
 GameObject:
   m_ObjectHideFlags: 0
@@ -6595,6 +6611,7 @@ GameObject:
   - component: {fileID: 1152505512}
   - component: {fileID: 1152505511}
   - component: {fileID: 1152505514}
+  - component: {fileID: 1152505515}
   m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
@@ -6661,7 +6678,7 @@ Transform:
   m_GameObject: {fileID: 1152505509}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.13882741, z: 0, w: 0.99031657}
-  m_LocalPosition: {x: 27.23, y: 3.62, z: -0.1}
+  m_LocalPosition: {x: 29.11, y: 4.13, z: -0.1}
   m_LocalScale: {x: 6.6065, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6712,6 +6729,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2103314, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &1152505515
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1152505509}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 1
 --- !u!1 &1191035813
 GameObject:
   m_ObjectHideFlags: 0
