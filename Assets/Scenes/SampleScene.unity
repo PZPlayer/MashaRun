@@ -131,7 +131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 52291164}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 40.41, y: 6.22, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 267816923}
@@ -393,6 +393,7 @@ MonoBehaviour:
   _original: {r: 1, g: 1, b: 1, a: 1}
   _gainHealth: {r: 0.09680781, g: 1, b: 0.051886797, a: 1}
   _looseHealth: {r: 0.85882354, g: 0, b: 0, a: 1}
+  team: 1
   OnDeathEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -461,8 +462,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 0.01
+  _damage: 10
+  _damageKnockback: 400
+  _visionSize: 50
+  _attackRange: 6
+  _attackWait: 2
+  _waitAfterAttack: 1
+  _layers:
+    serializedVersion: 2
+    m_Bits: 243
   _health: {fileID: 269702855}
+  _teamAnger: 3
   _humanoid: {fileID: 11400000, guid: 39ccbf81242ac8c41b2b8ea63d09fc1b, type: 2}
+  Player: {fileID: 0}
 --- !u!1 &317013217
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +484,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 317013218}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -759,7 +771,7 @@ GameObject:
   - component: {fileID: 757044342}
   - component: {fileID: 757044344}
   - component: {fileID: 757044343}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5587,7 +5599,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 924350093}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Feet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5874,7 +5886,7 @@ GameObject:
   - component: {fileID: 1020142027}
   - component: {fileID: 1020142029}
   - component: {fileID: 1020142028}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6095,10 +6107,11 @@ MonoBehaviour:
   _health: 0
   _maxHealth: 100
   _armor: 20
-  _beOtherColorFor: 0.2
+  _beOtherColorFor: 0.5
   _original: {r: 1, g: 1, b: 1, a: 1}
   _gainHealth: {r: 0.021979213, g: 1, b: 0, a: 1}
   _looseHealth: {r: 0.764151, g: 0, b: 0, a: 1}
+  team: 3
   OnDeathEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -7151,7 +7164,7 @@ GameObject:
   - component: {fileID: 1729807782}
   - component: {fileID: 1729807784}
   - component: {fileID: 1729807783}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: JumpEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12228,7 +12241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1981316843}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}

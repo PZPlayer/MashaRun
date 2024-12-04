@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1049576155045397912}
   - component: {fileID: 2469116723851472809}
   - component: {fileID: 1874567618635928780}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4851,7 +4851,7 @@ GameObject:
   - component: {fileID: -3789774165318389016}
   - component: {fileID: 9037966331002406099}
   - component: {fileID: 6058622962669456051}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4890,6 +4890,7 @@ MonoBehaviour:
   _hitWall: {fileID: 3212936430096390789}
   _hitEnemy: {fileID: 8828190870921629919}
   _basePartcls: {fileID: 2469116723851472809}
+  _damage: 0
 --- !u!50 &9037966331002406099
 Rigidbody2D:
   serializedVersion: 4
@@ -4973,7 +4974,7 @@ GameObject:
   - component: {fileID: 8705161681852641746}
   - component: {fileID: 3212936430096390789}
   - component: {fileID: 440328343462562043}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HitGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9802,7 +9803,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4725788889298803713}
   - component: {fileID: 6762430315682774140}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9890,7 +9891,7 @@ GameObject:
   - component: {fileID: 2878953707032311635}
   - component: {fileID: 8828190870921629919}
   - component: {fileID: 4691427095465584009}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HitEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

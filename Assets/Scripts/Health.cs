@@ -4,12 +4,22 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
+public enum Team
+{
+    Green,
+    Red,
+    Blue,
+    Player,
+    Yellow
+}
+
 [RequireComponent(typeof(SpriteRenderer))]
 public class Health : MonoBehaviour, IDamageble, IHealble
 {
     [SerializeField] private Humanoid humanoid;
     [SerializeField] private float _health, _maxHealth, _armor, _beOtherColorFor;
     [SerializeField] private Color _original, _gainHealth, _looseHealth;
+    public Team team;
     public UnityEvent OnDeathEvent;
     private SpriteRenderer spriteRenderer;
 
@@ -61,7 +71,7 @@ public class Health : MonoBehaviour, IDamageble, IHealble
         while(timePassed < time)
         {
             float number = timePassed / time;
-            spriteRenderer.color = Color.Lerp(_original, color, number);
+            spriteRenderer.color = Color.Lerp(color, _original, number);
             timePassed += Time.deltaTime;
             yield return null;
         }
@@ -70,7 +80,7 @@ public class Health : MonoBehaviour, IDamageble, IHealble
         while (timePassed < time)
         {
             float number = timePassed / time;
-            spriteRenderer.color = Color.Lerp(color, _original, number);
+            spriteRenderer.color = Color.Lerp(_original, color, number);
             timePassedSec += Time.deltaTime;
             yield return null;
         }
