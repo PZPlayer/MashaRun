@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,11 +50,11 @@ public class Movement : MonoBehaviour
         weaponUp = GetComponent<WeaponUse>().ifWeaponActive;
         if (trajectory.x > 0)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
         }
         else if (trajectory.x < 0)
         {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
         }
 
         _anmtr.SetBool("Run", trajectory.x != 0 ? true : false);
@@ -78,12 +79,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer >= _dashReload && _dashesAvaible > 0)
         {
             dashTimer = 0;
-            _dashesAvaible--;
-            rb.velocity = Vector2.zero;
-            rb.AddForce(transform.rotation.eulerAngles.y == 180 ? Vector2.left * _dashForce  : Vector2.right * _dashForce, ForceMode2D.Impulse);
-            _dashPatcls.Play();
-            _anmtr.SetTrigger("Dash");
-            StartCoroutine(ReduceFriction());
+            Dash();
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && (ifGrounded || jumpcoyoteTimer > 0))
@@ -120,6 +116,16 @@ public class Movement : MonoBehaviour
             rb.gravityScale = gravity * 1f;
             _anmtr.SetBool("Jump", false);
         }
+    }
+
+    private void Dash()
+    {
+        _dashesAvaible--;
+        rb.velocity = Vector2.zero;
+        rb.AddForce(transform.localScale.x < 0 ? Vector2.left * _dashForce : Vector2.right * _dashForce, ForceMode2D.Impulse);
+        _dashPatcls.Play();
+        _anmtr.SetTrigger("Dash");
+        StartCoroutine(ReduceFriction());
     }
 
     IEnumerator ReduceFriction()

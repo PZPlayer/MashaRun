@@ -91,6 +91,12 @@ public class WeaponUse : MonoBehaviour
             StartCoroutine(Reload(_weapon.Reload));
             _magazine = -1;
         }
+        if(Input.GetKey(KeyCode.R))
+        {
+            StopAllCoroutines();
+            StartCoroutine(Reload(_weapon.Reload));
+            _magazine = -1;
+        }
         if (Input.GetMouseButtonDown(0) && weaponActive && waitBeforeShoot > 0.3f && _magazine != -1)
         {
             if(_magazine >  0)
@@ -130,8 +136,7 @@ public class WeaponUse : MonoBehaviour
         GameObject curBullet = GetBulletFromPull();
         curBullet.SetActive(true);
         curBullet.transform.position = new Vector3(_shootPoint.position.x, _shootPoint.position.y , 0);
-        curBullet.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y == 0 ? 0 : -180, 0);
-        StartCoroutine(KillBulletAfterDelay(curBullet, 3));
+        curBullet.transform.localScale = new Vector3(transform.localScale.x > 0 ? Mathf.Abs(curBullet.transform.localScale.x) : -Mathf.Abs(curBullet.transform.localScale.x), curBullet.transform.localScale.y, curBullet.transform.localScale.z);
     }
 
     IEnumerator KillBulletAfterDelay(GameObject bullet, float delay)

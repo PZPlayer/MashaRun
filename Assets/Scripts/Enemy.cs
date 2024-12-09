@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _attackRange;
     [SerializeField] private float _attackWait;
     [SerializeField] private float _waitAfterAttack;
+    [SerializeField] private float _stopDistance;
+
+    [SerializeField] private ParticleSystem _biteParticle;
 
     [SerializeField] private LayerMask _layers;
 
@@ -53,6 +56,10 @@ public class Enemy : MonoBehaviour
             {
                 Attack();
             }
+            else if (Vector2.Distance(transform.position, Player.transform.position) <= _stopDistance)
+            {
+                animator.SetBool("Walking", false);
+            }
             else
             {
                 Move();
@@ -88,6 +95,7 @@ public class Enemy : MonoBehaviour
         if(afterAttackWait == -1)
         {
             animator.SetTrigger("Attack");
+            _biteParticle.Play();
             afterAttackWait = 0;
         }
         afterAttackWait += Time.deltaTime;
@@ -139,12 +147,12 @@ public class Enemy : MonoBehaviour
         if (facingRight)
         {
             trajecroty = Vector2.right;
-            transform.localScale = new Vector2(-Mathf.Abs(transform.localScale.x), transform.localScale.y);
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
         }
         else
         {
             trajecroty = Vector2.left;
-            transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
         }
         transform.position += new Vector3(trajecroty.x, trajecroty.y, 0) * _speed;
     }

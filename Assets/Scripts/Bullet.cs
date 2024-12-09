@@ -8,9 +8,14 @@ public class Bullet : MonoBehaviour
     [SerializeField] private ParticleSystem _hitWall, _hitEnemy, _basePartcls;
     [SerializeField] private float _damage;
 
+
+    private void Awake()
+    {
+        TurnOn();
+    }
     private void FixedUpdate()
     {
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
+        transform.Translate(transform.localScale.x > 0 ? Vector3.right : Vector3.left * speed * Time.deltaTime);
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
 
@@ -22,19 +27,37 @@ public class Bullet : MonoBehaviour
             damageble.Damage(_damage);
             if (transform.GetChild(0).GetComponent<SpriteRenderer>().enabled == true)
             {
-                _hitWall.Play();
-                transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-                _basePartcls.Stop();
-                StartCoroutine(Disapier(0.3f));
+                _hitEnemy.Play();
+                TurnOff();
+                StartCoroutine(Disapier(1));
             }
         }
+        else
+        {
+            _hitWall.Play();
+            TurnOff();
+            StartCoroutine(Disapier(1));
+        }
+    }
+
+    private void TurnOn()
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+        transform.GetComponent<Collider2D>().enabled = true;
+        transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    private void TurnOff()
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+        transform.GetComponent<Collider2D>().enabled = false;
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     IEnumerator Disapier(float time)
     {
         yield return new WaitForSeconds(time);
-        transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
-        _basePartcls.Play();
+        TurnOn();
         gameObject.SetActive(false);
     }
 }
