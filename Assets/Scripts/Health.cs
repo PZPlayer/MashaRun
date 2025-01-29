@@ -17,19 +17,23 @@ public enum Team
 public class Health : MonoBehaviour, IDamageble, IHealble
 {
     [SerializeField] private Humanoid humanoid;
-    [SerializeField] private float _health, _maxHealth, _armor, _beOtherColorFor;
+    [SerializeField] private float _health,_maxHealth, _armor, _beOtherColorFor;
     [SerializeField] private Color _original, _gainHealth, _looseHealth;
+    [SerializeField]private List<SpriteRenderer> _spriteRenderer;
+
     public Team team;
-    public UnityEvent OnDeathEvent;
-    private SpriteRenderer spriteRenderer;
+    public UnityEvent OnDeathEvent, OnHitEvent;
+
+    public float GetCurHealth { get => _health;}
+    public float GetMaxHealth { get => _maxHealth; }
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        if(_spriteRenderer.Count == 0) _spriteRenderer.Add(GetComponent<SpriteRenderer>());
         _maxHealth = humanoid.MaxHp;
         _health = _maxHealth;
         _armor = humanoid.Armor;
-        _original = spriteRenderer.color;
+        _original = _spriteRenderer[0].color;
     }
 
     public void ChangeCurentHealth(float damage)
@@ -61,6 +65,7 @@ public class Health : MonoBehaviour, IDamageble, IHealble
         }
         else
         {
+            OnHitEvent.Invoke();
             StartCoroutine(ChangeColor(_looseHealth, _beOtherColorFor));
         }
     }
@@ -71,7 +76,10 @@ public class Health : MonoBehaviour, IDamageble, IHealble
         while(timePassed < time)
         {
             float number = timePassed / time;
-            spriteRenderer.color = Color.Lerp(color, _original, number);
+            for(int i = 0; i < _spriteRenderer.Count; i++)
+            {
+                _spriteRenderer[i].color = Color.Lerp(color, _original, number);
+            }
             timePassed += Time.deltaTime;
             yield return null;
         }
@@ -80,7 +88,10 @@ public class Health : MonoBehaviour, IDamageble, IHealble
         while (timePassed < time)
         {
             float number = timePassed / time;
-            spriteRenderer.color = Color.Lerp(_original, color, number);
+            for (int i = 0; i < _spriteRenderer.Count; i++)
+            {
+                _spriteRenderer[i].color = Color.Lerp(_original, color, number);
+            }
             timePassedSec += Time.deltaTime;
             yield return null;
         }

@@ -1,28 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private Transform _player;
-    [SerializeField] private float _smoothSpeed = 0.125f;
-    [SerializeField] private Vector3 _offset;
-    [SerializeField] private float _minOrthographicSize = 5f;
-    [SerializeField] private float _maxOrthographicSize = 15f;
+    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
-    void Start()
+    IEnumerator CameraShake(float time, float amplitude, float frequency)
     {
-        _maxOrthographicSize = _offset.z;
+        _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = frequency;
+        _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = amplitude;
+        yield return new WaitForSeconds(time);
+        _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0;
+        _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
     }
 
-    void FixedUpdate()
+    public void TakeDamage()
     {
-        Vector3 desiredPosition = _player.position + _offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, _smoothSpeed);
-        transform.position = smoothedPosition;
-
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        _offset.z -= scroll * 6f;
-        _offset.z = Mathf.Clamp(_offset.z, _maxOrthographicSize, _minOrthographicSize);
+        StartCoroutine(CameraShake(0.2f, 10f, 1f));
     }
 }

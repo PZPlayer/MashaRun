@@ -62,7 +62,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c432b13a580917e47bed6153b8ffca95, type: 3}
       propertyPath: m_Name
-      value: Tree1Wholedf
+      value: TreePlace1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c432b13a580917e47bed6153b8ffca95, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private LayerMask _layers;
 
+    [SerializeField] private GameObject[] _objectsToBeDestroyed;
+
     [SerializeField] private Health _health;
 
     [SerializeField] private Team _teamAnger;
@@ -155,5 +157,15 @@ public class Enemy : MonoBehaviour
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
         }
         transform.position += new Vector3(trajecroty.x, trajecroty.y, 0) * _speed;
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(animator);
+
+        for (int i = 0; i < _objectsToBeDestroyed.Length; i++)
+        {
+            Destroy(_objectsToBeDestroyed[i].gameObject);
+        }
     }
 }

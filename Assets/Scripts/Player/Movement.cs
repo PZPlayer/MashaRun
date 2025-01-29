@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -34,6 +35,10 @@ public class Movement : MonoBehaviour
     private float jumpcoyoteTimer;
     private float maxDashes;
     private bool weaponUp;
+
+    public float GetCurDashes { get => _dashesAvaible; }
+    public float GetMaxDashes { get => maxDashes; }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -45,21 +50,7 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        trajectory.x = Input.GetAxis("Horizontal");
-        trajectory *= Time.deltaTime * _speed;
-        weaponUp = GetComponent<WeaponUse>().ifWeaponActive;
-        if (trajectory.x > 0)
-        {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
-        }
-        else if (trajectory.x < 0)
-        {
-            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
-        }
-
-        _anmtr.SetBool("Run", trajectory.x != 0 ? true : false);
-
-        transform.position += trajectory * (weaponUp == true ? _slowOnWeaponEquip : 1);
+        Move();
     }
 
     private void Update()
@@ -116,6 +107,25 @@ public class Movement : MonoBehaviour
             rb.gravityScale = gravity * 1f;
             _anmtr.SetBool("Jump", false);
         }
+    }
+
+    private void Move()
+    {
+        trajectory.x = Input.GetAxis("Horizontal");
+        trajectory *= Time.deltaTime * _speed;
+        weaponUp = GetComponent<WeaponUse>().ifWeaponActive;
+        if (trajectory.x > 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
+        }
+        else if (trajectory.x < 0)
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, 1);
+        }
+
+        _anmtr.SetBool("Run", trajectory.x != 0 ? true : false);
+
+        transform.position += trajectory * (weaponUp == true ? _slowOnWeaponEquip : 1);
     }
 
     private void Dash()
